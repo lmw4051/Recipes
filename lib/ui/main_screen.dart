@@ -19,8 +19,31 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
   }
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    String title;
+
+    switch (_selectedIndex) {
+      case 0:
+        title = 'Recipes';
+        break;
+      case 1:
+        title = 'Bookmarks';
+        break;
+      case 2:
+        title = 'Groceries';
+        break;
+      default:
+        title = 'Recipes';
+        break;
+    }
+
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         items: [
@@ -40,9 +63,23 @@ class _MainScreenState extends State<MainScreen> {
                   semanticsLabel: 'Groceries'),
               label: 'Groceries'),
         ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: green,
+        onTap: _onItemTapped,
       ),
       appBar: AppBar(
-        title: Text('Test'),
+        title: Text(
+          title,
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+            color: Colors.black,
+          ),
+        ),
+      ),
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: pageList,
       ),
     );
   }
