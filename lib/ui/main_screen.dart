@@ -1,4 +1,5 @@
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:recipes/ui/recipes/recipe_list.dart';
 import 'colors.dart';
 
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
+    pageList.add(const RecipeList());
   }
 
   void _onItemTapped(int index) {
