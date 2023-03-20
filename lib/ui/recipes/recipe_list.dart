@@ -8,6 +8,7 @@ import '../widgets/custom_dropdown.dart';
 import 'dart:convert';
 import '../../network/recipe_model.dart';
 import 'package:flutter/services.dart';
+import '../recipe_card.dart';
 
 class RecipeList extends StatefulWidget {
   const RecipeList({Key? key}) : super(key: key);
@@ -192,13 +193,19 @@ class _RecipeListState extends State<RecipeList> {
   }
 
   Widget _buildRecipeLoader(BuildContext context) {
-    if (searchTextController.text.length < 3) {
+    if (_currentRecipes1 == null || _currentRecipes1?.hits == null) {
       return Container();
     }
-    // Show a loading indicator while waiting for the movies
-    return const Center(
-      child: CircularProgressIndicator(),
-    );
+
+    return Flexible(
+        child: ListView.builder(
+      itemCount: 1,
+      itemBuilder: (BuildContext context, int index) {
+        return Center(
+          child: _buildRecipeCard(context, _currentRecipes1!.hits, 0),
+        );
+      },
+    ));
   }
 
   Widget _buildRecipeCard(
@@ -213,6 +220,7 @@ class _RecipeListState extends State<RecipeList> {
           },
         ));
       },
+      child: recipeStringCard(recipe.image, recipe.label),
     );
   }
 }
