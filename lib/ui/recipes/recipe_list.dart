@@ -5,6 +5,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../colors.dart';
 import '../widgets/custom_dropdown.dart';
 
+import 'dart:convert';
+import '../../network/recipe_model.dart';
+import 'package:flutter/services.dart';
+
 class RecipeList extends StatefulWidget {
   const RecipeList({Key? key}) : super(key: key);
 
@@ -26,11 +30,12 @@ class _RecipeListState extends State<RecipeList> {
   bool loading = false;
   bool inErrorState = false;
   List<String> previousSearches = <String>[];
+  APIRecipeQuery? _currentRecipes1;
 
   @override
   void initState() {
     super.initState();
-
+    loadRecipes();
     getPreviousSearches();
 
     searchTextController = TextEditingController(text: '');
@@ -51,6 +56,13 @@ class _RecipeListState extends State<RecipeList> {
           });
         }
       }
+    });
+  }
+
+  Future loadRecipes() async {
+    final jsonString = await rootBundle.loadString('assets/recipes1.json');
+    setState(() {
+      _currentRecipes1 = APIRecipeQuery.fromJson(jsonDecode(jsonString));
     });
   }
 
@@ -186,6 +198,21 @@ class _RecipeListState extends State<RecipeList> {
     // Show a loading indicator while waiting for the movies
     return const Center(
       child: CircularProgressIndicator(),
+    );
+  }
+
+  Widget _buildRecipeCard(
+      BuildContext topLevelContext, List<APIHits> hits, int index) {
+    final recipe = hits[index].recipe;
+
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(topLevelContext, MaterialPageRoute(
+          builder: (context) {
+            return Container();
+          },
+        ));
+      },
     );
   }
 }
