@@ -1,22 +1,26 @@
-import 'package:equatable/equatable.dart';
+import 'models/models.dart';
 
-class Ingredient extends Equatable {
-  int? id;
-  int? recipeId;
-  final String? name;
-  final double? weight;
+abstract class Repository {
+  List<Recipe> findAllRecipes();
 
-  Ingredient({
-    this.id,
-    this.recipeId,
-    this.name,
-    this.weight,
-  });
+  Recipe findRecipeById(int id);
 
-  @override
-  List<Object?> get props => [
-        recipeId,
-        name,
-        weight,
-      ];
+  List<Ingredient> findAllIngredients();
+
+  List<Ingredient> findRecipeIngredients(int reciepId);
+
+  int insertRecipe(Recipe recipe);
+
+  List<int> insertIngredients(List<Ingredient> ingredients);
+
+  void deleteRecipe(Recipe recipe);
+
+  void deleteIngredient(Ingredient ingredient);
+
+  void deleteIngredients(List<Ingredient> ingredients);
+
+  void deleteRecipeIngredients(int recipeId);
+
+  Future init();
+  void close();
 }
