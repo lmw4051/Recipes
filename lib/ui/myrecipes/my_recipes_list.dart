@@ -84,16 +84,16 @@ class _MyRecipesListState extends State<MyRecipesList> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ListTile(
-                        leading: CachedNetworkImage(
-                          imageUrl: recipe.image ?? '',
-                          height: 120,
-                          width: 60,
-                          fit: BoxFit.cover,
+                        leading: Image.asset(
+                          'assets/images/pizza_w700.png',
+                          height: 200,
+                          width: 200,
                         ),
-                        // leading: Image.asset(
-                        //   'assets/images/pizza_w700.png',
-                        //   height: 200,
-                        //   width: 200,
+                        // leading: CachedNetworkImage(
+                        //   imageUrl: recipe.image ?? '',
+                        //   height: 120,
+                        //   width: 60,
+                        //   fit: BoxFit.cover,
                         // ),
                         title: Text(recipe.label ?? ''),
                       ),
