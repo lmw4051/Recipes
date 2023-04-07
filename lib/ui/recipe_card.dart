@@ -14,16 +14,16 @@ Widget recipeCard(APIRecipe recipe) {
         ClipRRect(
           borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(6.0), topRight: Radius.circular(6.0)),
-          child: Image.asset(
-            'assets/images/pizza_w700.png',
-            height: 200,
-            width: 200,
-          ),
-          // child: CachedNetworkImage(
-          //   imageUrl: recipe.image,
-          //   height: 210,
-          //   fit: BoxFit.fill,
+          // child: Image.asset(
+          //   'assets/images/pizza_w700.png',
+          //   height: 200,
+          //   width: 200,
           // ),
+          child: CachedNetworkImage(
+            imageUrl: recipe.image,
+            height: 210,
+            fit: BoxFit.fill,
+          ),
         ),
         const SizedBox(
           height: 12.0,
